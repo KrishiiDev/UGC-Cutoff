@@ -1,31 +1,81 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UGC Course Finder</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div><h1>UGC Course Finder</h1><p>Find university courses you can enter with your Z-score</p></div><div class="hb"><button id="inf" type="button" aria-label="About this tool">?</button><button id="th" type="button" aria-label="Toggle dark/light mode">◐</button></div></header>
-<main>
-<form id="f" class="panel">
-<label>A/L Year<select id="yr"><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select></label>
-<label>A/L Stream<select id="st"></select></label>
-<label>Z-Score<input id="z" type="number" step="0.0001" placeholder="e.g. 1.6500" required></label>
-<label>District<select id="di"></select></label>
-<button class="go">Find courses</button>
-</form>
-<nav class="tabs"><button type="button" data-t="r" class="on">Eligible courses</button><button type="button" data-t="c">Compare cutoffs</button></nav>
-<section id="r"><p class="hint">Enter your details above and press “Find courses”.</p></section>
-<section id="c" hidden><div class="panel"><label>Course<select id="cs"></select></label><label>District<select id="cd"></select></label></div><div id="ch"></div><p id="cm" class="hint"></p></section>
-</main>
-<footer>Cutoffs are the minimum Z-scores of students selected in the UGC admission for that year (A/L 2023 → 2023/2024, A/L 2024 → 2024/2025, A/L 2025 → 2025/2026). They show last year’s pattern, not a guarantee. Stream matching follows the UGC Student Handbook 2025/2026 (Section 2.1); subject requirements still apply — confirm them in the Handbook. Source: University Grants Commission, Sri Lanka.</footer>
-<dialog id="intro" data-l="si" aria-labelledby="it">
-<div class="lt" role="group" aria-label="Language"><button type="button" data-l="si" aria-pressed="true">සිංහල</button><button type="button" data-l="ta" aria-pressed="false">தமிழ்</button><button type="button" data-l="en" aria-pressed="false">English</button></div>
-<h2 id="it"><span class="l si">UGC Course Finder වෙත සාදරයෙන් පිළිගනිමු</span><span class="l ta">UGC Course Finder-க்கு வரவேற்கிறோம்</span><span class="l en">Welcome to UGC Course Finder</span></h2>
-<p class="l si">ඔබට පහසුවෙන්ම Cutoff වලට අදාළව Courses සොයාගැනීමට මෙය නිර්මාණය කර ඇත.</p>
-<p class="l ta">Cutoff அடிப்படையில் உங்களுக்கு ஏற்ற பாடநெறிகளை (Courses) எளிதாகக் கண்டறிய உதவுவதற்காக இந்த இணையதளம் உருவாக்கப்பட்டுள்ளது.</p>
-<p class="l en">This site is built to help you easily find courses based on cutoffs.</p>
-<div class="note warn"><p class="l si">මෙම වෙබ් අඩවියෙන් පමණක් Courses වලට අදාළ තොරතුරු ලබා නොගන්න. අනිවාර්යයෙන්ම UGC එකෙන් නිකුත් කරන PDF සහ University Handbook එක භාවිතා කරන්න.</p>
-<p class="l ta">பாடநெறிகள் பற்றிய தகவல்களை இந்த இணையதளத்திலிருந்து மட்டும் பெற வேண்டாம். UGC வெளியிடும் PDF மற்றும் University Handbook ஐ கட்டாயம் பயன்படுத்துங்கள்.</p>
-<p class="l en">Do not rely only on this website for course information. Always use the PDFs and the University Handbook issued by the UGC.</p></div>
-<p class="l si">ඒ ගැන Updates ලබාගැනීමට Telegram චැනලයට Join වන්න.</p>
-<p class="l ta">இது தொடர்பான புதுப்பிப்புகளைப் பெற எமது Telegram சேனலில் இணையுங்கள்.</p>
-<p class="l en">Join our Telegram channel for updates.</p>
-<a class="tg" href="https://t.me/YOUR_CHANNEL" target="_blank" rel="noopener"><span class="l si">Telegram චැනලයට Join වන්න</span><span class="l ta">Telegram சேனலில் இணையுங்கள்</span><span class="l en">Join Telegram channel</span></a>
-<label class="ck"><input type="checkbox" id="ns"> <span class="l si">නැවත පෙන්වන්න එපා</span><span class="l ta">மீண்டும் காட்ட வேண்டாம்</span><span class="l en">Don’t show this again</span></label>
-<button type="button" id="ok" class="go"><span class="l si">හරි, තේරුණා</span><span class="l ta">சரி, புரிந்தது</span><span class="l en">Got it</span></button></dialog>
-<script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>UGC Course Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>UGC Course Finder</h1>
+            <p>Find university courses you can enter with your Z-score</p>
+        </div>
+        <div class="hb"><button id="inf" type="button" aria-label="About this tool">?</button><button id="th"
+                type="button" aria-label="Toggle dark/light mode">◐</button></div>
+    </header>
+    <main>
+        <form id="f" class="panel">
+            <label>A/L Year<select id="yr">
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                </select></label>
+            <label>A/L Stream<select id="st"></select></label>
+            <label>Z-Score<input id="z" type="number" step="0.0001" placeholder="e.g. 1.6500" required></label>
+            <label>District<select id="di"></select></label>
+            <button class="go">Find courses</button>
+        </form>
+        <nav class="tabs"><button type="button" data-t="r" class="on">Eligible courses</button><button type="button"
+                data-t="c">Compare cutoffs</button></nav>
+        <section id="r">
+            <p class="hint">Enter your details above and press “Find courses”.</p>
+        </section>
+        <section id="c" hidden>
+            <div class="panel"><label>Course<select id="cs"></select></label><label>District<select
+                        id="cd"></select></label></div>
+            <div id="ch"></div>
+            <p id="cm" class="hint"></p>
+        </section>
+    </main>
+    <footer>Cutoffs are the minimum Z-scores of students selected in the UGC admission for that year (A/L 2023 →
+        2023/2024, A/L 2024 → 2024/2025, A/L 2025 → 2025/2026). They show last year’s pattern, not a guarantee. Stream
+        matching follows the UGC Student Handbook 2025/2026 (Section 2.1); subject requirements still apply — confirm
+        them in the Handbook. Source: University Grants Commission, Sri Lanka.</footer>
+    <dialog id="intro" data-l="si" aria-labelledby="it">
+        <div class="lt" role="group" aria-label="Language"><button type="button" data-l="si"
+                aria-pressed="true">සිංහල</button><button type="button" data-l="ta"
+                aria-pressed="false">தமிழ்</button><button type="button" data-l="en"
+                aria-pressed="false">English</button></div>
+        <h2 id="it"><span class="l si">UGC Course Finder වෙත සාදරයෙන් පිළිගනිමු</span><span class="l ta">UGC Course
+                Finder-க்கு வரவேற்கிறோம்</span><span class="l en">Welcome to UGC Course Finder</span></h2>
+        <p class="l si">ඔබට පහසුවෙන්ම Cutoff වලට අදාළව Courses සොයාගැනීමට මෙය නිර්මාණය කර ඇත.</p>
+        <p class="l ta">Cutoff அடிப்படையில் உங்களுக்கு ஏற்ற பாடநெறிகளை (Courses) எளிதாகக் கண்டறிய உதவுவதற்காக இந்த
+            இணையதளம் உருவாக்கப்பட்டுள்ளது.</p>
+        <p class="l en">This site is built to help you easily find courses based on cutoffs.</p>
+        <div class="note warn">
+            <p class="l si">මෙම වෙබ් අඩවියෙන් පමණක් Courses වලට අදාළ තොරතුරු ලබා නොගන්න. අනිවාර්යයෙන්ම UGC එකෙන් නිකුත්
+                කරන PDF සහ University Handbook එක භාවිතා කරන්න.</p>
+            <p class="l ta">பாடநெறிகள் பற்றிய தகவல்களை இந்த இணையதளத்திலிருந்து மட்டும் பெற வேண்டாம். UGC வெளியிடும் PDF
+                மற்றும் University Handbook ஐ கட்டாயம் பயன்படுத்துங்கள்.</p>
+            <p class="l en">Do not rely only on this website for course information. Always use the PDFs and the
+                University Handbook issued by the UGC.</p>
+        </div>
+        <p class="l si">ඒ ගැන Updates ලබාගැනීමට Telegram චැනලයට Join වන්න.</p>
+        <p class="l ta">இது தொடர்பான புதுப்பிப்புகளைப் பெற எமது Telegram சேனலில் இணையுங்கள்.</p>
+        <p class="l en">Join our Telegram channel for updates.</p>
+        <a class="tg" href="https://t.me/YOUR_CHANNEL" target="_blank" rel="noopener"><span class="l si">Telegram චැනලයට
+                Join වන්න</span><span class="l ta">Telegram சேனலில் இணையுங்கள்</span><span class="l en">Join Telegram
+                channel</span></a>
+        <label class="ck"><input type="checkbox" id="ns"> <span class="l si">නැවත පෙන්වන්න එපා</span><span
+                class="l ta">மீண்டும் காட்ட வேண்டாம்</span><span class="l en">Don’t show this again</span></label>
+        <button type="button" id="ok" class="go"><span class="l si">හරි, තේරුණා</span><span class="l ta">சரி,
+                புரிந்தது</span><span class="l en">Got it</span></button>
+    </dialog>
+    <script src="app.js"></script>
+</body>
+
+</html>
